@@ -1,12 +1,11 @@
 
-import { Bell, Menu, X, LogIn, UserPlus } from "lucide-react";
+import { Bell, Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const location = useLocation();
 
   const navItems = [
     { label: "Home", path: "/" },
@@ -15,9 +14,6 @@ export const Navbar = () => {
     { label: "Resources", path: "/resources" },
     { label: "Analytics", path: "/analytics" },
   ];
-
-  // Check if user is on the auth page
-  const isAuthPage = ['/signin', '/signup', '/forgot-password'].includes(location.pathname);
 
   return (
     <nav className="fixed top-0 w-full bg-white/80 backdrop-blur-md border-b z-50">
@@ -30,33 +26,17 @@ export const Navbar = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`text-gray-600 hover:text-primary transition-colors ${
-                  location.pathname === item.path ? "text-primary font-medium" : ""
-                }`}
+                className="text-gray-600 hover:text-primary transition-colors"
               >
                 {item.label}
               </Link>
             ))}
-            
-            <div className="flex items-center gap-2 ml-4">
-              <Link to="/signin">
-                <Button variant="ghost" size="sm" className="gap-1">
-                  <LogIn className="h-4 w-4" />
-                  Sign in
-                </Button>
-              </Link>
-              <Link to="/signup">
-                <Button size="sm" className="gap-1">
-                  <UserPlus className="h-4 w-4" />
-                  Sign up
-                </Button>
-              </Link>
-            </div>
+            <Button variant="default">Get Started</Button>
           </div>
 
           {/* Mobile Navigation Button */}
@@ -81,28 +61,13 @@ export const Navbar = () => {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`block px-3 py-2 text-base font-medium hover:text-primary transition-colors ${
-                  location.pathname === item.path ? "text-primary" : "text-gray-600"
-                }`}
+                className="block px-3 py-2 text-base font-medium text-gray-600 hover:text-primary transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 {item.label}
               </Link>
             ))}
-            <div className="flex flex-col gap-2 mt-4 px-3">
-              <Link to="/signin" onClick={() => setIsOpen(false)}>
-                <Button variant="outline" className="w-full justify-start gap-2">
-                  <LogIn className="h-4 w-4" />
-                  Sign in
-                </Button>
-              </Link>
-              <Link to="/signup" onClick={() => setIsOpen(false)}>
-                <Button className="w-full justify-start gap-2">
-                  <UserPlus className="h-4 w-4" />
-                  Sign up
-                </Button>
-              </Link>
-            </div>
+            <Button className="w-full mt-4">Get Started</Button>
           </div>
         </div>
       )}
